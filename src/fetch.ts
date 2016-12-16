@@ -1,11 +1,9 @@
 //import {FetchInter} from './Fetch.inter';
 import Request from './Request';
-import Promise from 'Promise';
-
 
 export interface FetchInter{
-    run():any;
-    mock?:Object;
+    run():void;
+    mock?:any;
 }
 
 export default class Fetch implements FetchInter{
@@ -73,7 +71,7 @@ export default class Fetch implements FetchInter{
     run(url:string,options={body:{},method:'GET'} ){
 
         const _this = this;
-        return new Promise<string>(function(resolve:any, reject:any) {
+        return new Promise(function(resolve:any, reject:any) {
 
             _this.fetch(url,options.body,(data,xhr)=>{
                 resolve(data,xhr);
