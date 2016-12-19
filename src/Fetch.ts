@@ -1,6 +1,6 @@
 //import {FetchInter} from './Fetch.inter';
 import Request,{ajaxOptionsInter} from './Request';
-import Promise from 'Promise';
+import {Promise} from 'es6-promise';
 
 export interface FetchInter{
     mock?:any;
@@ -51,11 +51,11 @@ export default class Fetch implements FetchInter{
 
         opts.success = (data:{},xhr:any)=>{
             this.loadingBar.end();
-            success && success(data,xhr);
+            success && success.call(xhr,data,xhr);
         };
         opts.error =(xhr:any)=>{
             this.loadingBar.end();
-            error && error(xhr);
+            error && error.call(xhr,xhr);
         };
         opts.data = params;
 

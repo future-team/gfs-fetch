@@ -16,7 +16,7 @@ module.exports ={
             'bower_components',
             'lib'
         ],
-        extensions: [ "",".ts", ".tsx","js"]
+        extensions: [ "",".js",".ts", ".tsx"]
     },
     output:{
         libraryTarget: 'umd',
@@ -45,7 +45,7 @@ module.exports ={
     }],
     module:{
         preLoaders: [
-            {
+           /* {
                 test: /\.(jsx|es6|js)$/,
                 loaders: [''],
                 exclude: /node_modules/
@@ -53,7 +53,7 @@ module.exports ={
             {
                 test: /\.js$/,
                 loader: "source-map-loader"
-            }
+            }*/
         ],
         loaders:[
             {
@@ -63,7 +63,7 @@ module.exports ={
             },
             {
                 test: /\.(js|jsx|es6)$/,
-                loaders: ['babel'],
+                loaders: ['babel-loader'],
                 exclude: /node_modules/
             },
             {

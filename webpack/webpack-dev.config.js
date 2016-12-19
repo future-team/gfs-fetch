@@ -10,6 +10,7 @@ module.exports= function(){
 
     wbpk.devtool = 'source-map';
     //wbpk.devtool = 'eval';
+    console.log(path.join(process.cwd(),'example/src/index.js'));
     wbpk.entry={index:[path.join(process.cwd(),'example/src/index.js')]};
     wbpk.output.filename = 'example.js';
     for (var key in wbpk.entry) {

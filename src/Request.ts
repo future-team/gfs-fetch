@@ -1,5 +1,5 @@
 //import {RequestInter} from './Request.inter';
-import jqParam from 'jquery-param';
+import * as jqParam from 'jquery-param';
 //var jqParam = require('jquery-param');
 
 export interface ajaxOptionsInter{
@@ -88,7 +88,7 @@ export default class Request implements RequestInter{
 
         if(opts.timeout){
             setTimeout(()=>{
-                x.abort.call(x);
+                x.abort();
                 //_this.removeXhr(uid);
             },opts.timeout);
         }
@@ -101,7 +101,7 @@ export default class Request implements RequestInter{
 
             switch (x.readyState){
                 case 0:
-                    x.abort.call(x);
+                    x.abort(x);
                     break;
                 case 4:
                     //_this.removeXhr(uid);
