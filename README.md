@@ -2,6 +2,14 @@
 
 数据请求模块，可配合`gfs-mock` 或 `gfs-loadingbar`组合使用；
 
+## 安装
+
+```bash
+
+	npm install gfs-fetch --save
+	
+```
+
 ## 使用
 
 ```js
