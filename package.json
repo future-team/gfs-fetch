@@ -69,7 +69,7 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.12.1",
     "webpack-bower-resolver": "0.0.1",
-    "webpack-dev-server": "^1.10.1"
+    "webpack-dev-server": "^1.16.2"
   },
   "scripts": {
     "build": "tsc && node_modules/.bin/gulp && node_modules/.bin/gulp min",

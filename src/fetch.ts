@@ -1,15 +1,16 @@
 //import {FetchInter} from './Fetch.inter';
-import Request from './Request';
+import Request,{ajaxOptionsInter} from './Request';
+import Promise from 'Promise';
 
 export interface FetchInter{
-    run():void;
     mock?:any;
+    run(url:string,options?:any):any;
 }
 
 export default class Fetch implements FetchInter{
 
-    private loadingBar:any;
-    private mock:any;
+    loadingBar:any;
+    mock:any;
 
     /**
      * 构造函数
@@ -41,8 +42,7 @@ export default class Fetch implements FetchInter{
         }
     }
 
-    fetch(url:string,params={},success = (data:{},xhr:any)=>{},error= (xhr:any)=>{},opts={
-    } ){
+    fetch(url:string,params:{},success:Function,error:Function,opts:ajaxOptionsInter ){
 
         //todo 需要处理是否加载loadingbar的逻辑
 
@@ -68,7 +68,12 @@ export default class Fetch implements FetchInter{
      * @param options{object} 包含dataType、asyn、method、timeout、credentials=include、header={}
      * @return promise
      * */
-    run(url:string,options={body:{},method:'GET'} ){
+    run(url:string,options:ajaxOptionsInter = {
+        body:{},
+        error:function(){},
+        success:function(){},
+        method:'GET'
+    } ):any{
 
         const _this = this;
         return new Promise(function(resolve:any, reject:any) {

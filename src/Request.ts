@@ -1,22 +1,53 @@
 //import {RequestInter} from './Request.inter';
 import jqParam from 'jquery-param';
+//var jqParam = require('jquery-param');
 
+export interface ajaxOptionsInter{
+    dataType?:string;
+    asyn?:boolean;
+    method?:string;
+    timeout?:number;
+    credentials?:string;
+    success?:Function;
+    error?:Function;
+    abort?:Function;
+    header?:{};
+    data?:any;
+    body?:any;
+    cache?:boolean;
+}
 
 export  interface RequestInter{
-    get():void;
-    post():void;
+    get(url:string, opts:ajaxOptionsInter):Object;
+    post(url:string, opts:ajaxOptionsInter):Object;
+}
+
+export interface httpRequestInter{
+    open?:any;
+    abort?:any;
+    withCredentials?:any;
+    status?:any;
+    readyState?:any;
+    responseXML?:any;
+    getResponseHeader?:any;
+    send?:any;
+    setRequestHeader?:any;
+    onreadystatechange?:any;
+    responseText?:any;
 }
 
 export default class Request implements RequestInter{
 
     private xhrs:any[];
 
+    private method:string;
     constructor(){
 
+        this.method = 'GET';
     }
 
-    protected getXMLHttpRequest() {
-        let xhr = null;
+    protected getXMLHttpRequest():any {
+        let xhr:any;
         try {
             xhr = new ActiveXObject("microsoft.xmlhttp");
         } catch (e1) {
@@ -34,9 +65,11 @@ export default class Request implements RequestInter{
 
     }
 
-    protected send(url:string,opts={} ){
-        opts.success = opts.success || this.noc;
-        opts.error = opts.error || this.noc;
+    protected send(url:string,opts:ajaxOptionsInter={
+        abort:this.noc,
+        success:this.noc,
+        error:this.noc
+    } ){
 
         if(typeof(opts.dataType) =='undefined' ){
             opts.dataType = 'json';
@@ -46,7 +79,7 @@ export default class Request implements RequestInter{
             opts.asyn = true;
         }
 
-        let x = this.getXMLHttpRequest(),
+        let x:httpRequestInter = this.getXMLHttpRequest(),
             _this = this;
             //uid = 'uid_'+new Date().getTime()+(Math.random()*1e10).toFixed(0);
 
@@ -55,7 +88,7 @@ export default class Request implements RequestInter{
 
         if(opts.timeout){
             setTimeout(()=>{
-                x.abort();
+                x.abort.call(x);
                 //_this.removeXhr(uid);
             },opts.timeout);
         }
@@ -68,7 +101,7 @@ export default class Request implements RequestInter{
 
             switch (x.readyState){
                 case 0:
-                    opts.abort.call(x);
+                    x.abort.call(x);
                     break;
                 case 4:
                     //_this.removeXhr(uid);
@@ -81,9 +114,9 @@ export default class Request implements RequestInter{
                         }else{
                             ret=x.responseText;
                         }
-                        opts.success.call(x,ret,x);
+                        opts.success &&(opts.success.call(x,ret,x) );
                     }else{
-                        opts.error.call(x,x);
+                        opts.error &&(opts.error.call(x,x) );
                     }
                     break;
             }
@@ -124,7 +157,7 @@ export default class Request implements RequestInter{
         return this;
     }*/
 
-    ajax(url:string,opts):any{
+    ajax(url:string,opts:ajaxOptionsInter):any{
 
         if(opts.method && opts.method.toLowerCase() == 'post'){
             return this.post(url,opts);
@@ -135,7 +168,7 @@ export default class Request implements RequestInter{
         }
     }
 
-    get(url:string, opts):any {
+    get(url:string, opts:ajaxOptionsInter):any {
         opts = opts || {};
         opts.method = 'GET';
 
@@ -147,7 +180,7 @@ export default class Request implements RequestInter{
 
     }
 
-    post(url:string, opts) {
+    post(url:string, opts:ajaxOptionsInter):any {
         opts = opts || {};
         opts.method = 'POST';
 
@@ -155,7 +188,7 @@ export default class Request implements RequestInter{
         return this.send(url, opts);
     }
 
-    fetch(url:string ,opts){
+    fetch(url:string ,opts:ajaxOptionsInter):any{
         //let param = {};
         /*if(this.isMock() ){
             url = this.mockAddress+url.split('?')[0].toLowerCase()+'.json';

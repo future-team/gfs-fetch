@@ -5,7 +5,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var es3ifyPlugin = require('es3ify-webpack-plugin');
 
 var ent = {
-    example:[path.join(process.cwd(),'example/src/index.ts') ]
+    example:[path.join(process.cwd(),'example/src/index.js') ]
 };
 ent[config.name] =[path.join(process.cwd(),'src/index.ts')];
 module.exports ={
@@ -16,7 +16,7 @@ module.exports ={
             'bower_components',
             'lib'
         ],
-        extensions: [ "",".ts", ".tsx"]
+        extensions: [ "",".ts", ".tsx","js"]
     },
     output:{
         libraryTarget: 'umd',
@@ -47,7 +47,7 @@ module.exports ={
         preLoaders: [
             {
                 test: /\.(jsx|es6|js)$/,
-                loaders: ['eslint-loader'],
+                loaders: [''],
                 exclude: /node_modules/
             },
             {
@@ -59,6 +59,11 @@ module.exports ={
             {
                 test: /\.(tsx|ts)$/,
                 loaders: ['ts-loader'],
+                exclude: /node_modules/
+            },
+            {
+                test: /\.(js|jsx|es6)$/,
+                loaders: ['babel'],
                 exclude: /node_modules/
             },
             {
