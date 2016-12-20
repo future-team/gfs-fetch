@@ -1,5 +1,5 @@
 //import {FetchInter} from './Fetch.inter';
-import Request,{ajaxOptionsInter} from './Request';
+import Request,{AjaxPropsInter} from './Request';
 import {Promise} from 'es6-promise';
 
 export interface FetchInter{
@@ -42,7 +42,7 @@ export default class Fetch implements FetchInter{
         }
     }
 
-    fetch(url:string,params:{},success:Function,error:Function,opts:ajaxOptionsInter ){
+    fetch(url:string,params:{},success:Function,error:Function,opts:AjaxPropsInter ){
 
         //todo 需要处理是否加载loadingbar的逻辑
 
@@ -68,7 +68,7 @@ export default class Fetch implements FetchInter{
      * @param options{object} 包含dataType、asyn、method、timeout、credentials=include、header={}
      * @return promise
      * */
-    run(url:string,options:ajaxOptionsInter = {
+    run(url:string,options:AjaxPropsInter = {
         body:{},
         error:function(){},
         success:function(){},

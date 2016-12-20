@@ -2,7 +2,7 @@
 import * as jqParam from 'jquery-param';
 //var jqParam = require('jquery-param');
 
-export interface ajaxOptionsInter{
+export interface AjaxPropsInter{
     dataType?:string;
     asyn?:boolean;
     method?:string;
@@ -18,11 +18,11 @@ export interface ajaxOptionsInter{
 }
 
 export  interface RequestInter{
-    get(url:string, opts:ajaxOptionsInter):Object;
-    post(url:string, opts:ajaxOptionsInter):Object;
+    get(url:string, opts:AjaxPropsInter):Object;
+    post(url:string, opts:AjaxPropsInter):Object;
 }
 
-export interface httpRequestInter{
+export interface HttpRequestInter{
     open?:any;
     abort?:any;
     withCredentials?:any;
@@ -65,7 +65,7 @@ export default class Request implements RequestInter{
 
     }
 
-    protected send(url:string,opts:ajaxOptionsInter={
+    protected send(url:string,opts:AjaxPropsInter={
         abort:this.noc,
         success:this.noc,
         error:this.noc
@@ -79,7 +79,7 @@ export default class Request implements RequestInter{
             opts.asyn = true;
         }
 
-        let x:httpRequestInter = this.getXMLHttpRequest(),
+        let x:HttpRequestInter = this.getXMLHttpRequest(),
             _this = this;
             //uid = 'uid_'+new Date().getTime()+(Math.random()*1e10).toFixed(0);
 
@@ -157,7 +157,7 @@ export default class Request implements RequestInter{
         return this;
     }*/
 
-    ajax(url:string,opts:ajaxOptionsInter):any{
+    ajax(url:string,opts:AjaxPropsInter):any{
 
         if(opts.method && opts.method.toLowerCase() == 'post'){
             return this.post(url,opts);
@@ -168,7 +168,7 @@ export default class Request implements RequestInter{
         }
     }
 
-    get(url:string, opts:ajaxOptionsInter):any {
+    get(url:string, opts:AjaxPropsInter):any {
         opts = opts || {};
         opts.method = 'GET';
 
@@ -180,7 +180,7 @@ export default class Request implements RequestInter{
 
     }
 
-    post(url:string, opts:ajaxOptionsInter):any {
+    post(url:string, opts:AjaxPropsInter):any {
         opts = opts || {};
         opts.method = 'POST';
 
@@ -188,7 +188,7 @@ export default class Request implements RequestInter{
         return this.send(url, opts);
     }
 
-    fetch(url:string ,opts:ajaxOptionsInter):any{
+    fetch(url:string ,opts:AjaxPropsInter):any{
         //let param = {};
         /*if(this.isMock() ){
             url = this.mockAddress+url.split('?')[0].toLowerCase()+'.json';
