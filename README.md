@@ -1,6 +1,6 @@
 # gfs-fetch
 
-数据请求模块，可配合`gfs-mock` 或 `gfs-loadingbar`组合使用；
+数据请求模块，可配合`gfs-mock` 或 `gfs-loadingbar`组合使用，也可以根据具体需求自己实现；
 
 ## 安装
 
