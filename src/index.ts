@@ -1,1 +1,2 @@
-export  {default as Fetch} from './Fetch';
+import Fetch from './Fetch';
+export default Fetch;

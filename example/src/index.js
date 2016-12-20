@@ -5,7 +5,7 @@ import Hello from '../../src/Hello.ts';
 const hello = new Hello();
 
 document.body.innerHTML = hello.getMessage();*/
-import {Fetch} from '../../src/index';
+import Fetch from '../../src/index';
 
 var fetch;
 fetch = new Fetch();

@@ -14,7 +14,7 @@
 
 ```js
 
-	import {Fetch} from 'gfs-fetch';
+	import Fetch from 'gfs-fetch';
 	
 	let fetch = new Fetch([mock][,loadingbar]);
 	fetch.run('/mocks/ajax.jsons'[,options]).then((data)=>{
