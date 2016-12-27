@@ -32,7 +32,7 @@ export default class Fetch implements FetchInter{
 
         if(!this.loadingBar){
             this.loadingBar = {
-                run:()=>{
+                run:(props:any)=>{
                     console && console.warn('[Fetch loadingBar run]','未设置loadingbar功能！');
                 },
                 end:()=>{
@@ -42,11 +42,21 @@ export default class Fetch implements FetchInter{
         }
     }
 
+    addLoadingBar(loadingBar:any){
+        this.loadingBar = loadingBar;
+        return this;
+    }
+
+    addMock(mock:any){
+        this.mock = mock;
+        return this;
+    }
+
     fetch(url:string,params:{},success:Function,error:Function,opts:AjaxPropsInter ){
 
         //todo 需要处理是否加载loadingbar的逻辑
 
-        this.loadingBar.run();
+        this.loadingBar.run(opts || {});
         //todo 处理是否是走的mock链接
 
         opts.success = (data:{},xhr:any)=>{

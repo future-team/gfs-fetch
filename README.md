@@ -14,9 +14,18 @@
 
 ```js
 
-	import Fetch from 'gfs-fetch';
+	import fetch,{Fetch} from 'gfs-fetch';
 	
-	let fetch = new Fetch([mock][,loadingbar]);
+	let f = new Fetch([mock][,loadingbar]);
+	f.run('/mocks/ajax.jsons'[,options]).then((data)=>{
+    	
+    },function(ex){
+        root.innerHTML = `<font color="red">${ex.responseText}</font>`;
+    });
+
+	//or
+	fetch.addLoadingBar([loadingbar]); // 添加加载状态功能
+	fetch.addMock([mock]); //添加路由功能
 	fetch.run('/mocks/ajax.jsons'[,options]).then((data)=>{
     	
     },function(ex){
