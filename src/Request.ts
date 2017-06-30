@@ -15,6 +15,7 @@ export interface AjaxPropsInter{
     data?:any;
     body?:any;
     cache?:boolean;
+    ismock?:boolean;
 }
 
 export  interface RequestInter{
@@ -77,6 +78,9 @@ export default class Request implements RequestInter{
 
         if(typeof(opts.asyn) == 'undefined' ){
             opts.asyn = true;
+        }
+        if(typeof(opts.method) == 'undefined' ){
+            opts.method = 'GET';
         }
 
         let x:HttpRequestInter = this.getXMLHttpRequest(),
@@ -195,7 +199,6 @@ export default class Request implements RequestInter{
             opts.method = 'GET';
         }*/
         //url+='uuid='+(+new Date());
-
         return this.ajax(url,opts);
     }
 }

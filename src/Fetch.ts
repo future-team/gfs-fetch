@@ -26,6 +26,9 @@ export default class Fetch implements FetchInter{
                 getUrl:(url:string)=>{
                     console && console.warn('[Fetch mock getUrl]','未设置mock数据功能！');
                     return url;
+                },
+                getDev:()=>{
+                    return false;
                 }
             };
         }
@@ -69,7 +72,11 @@ export default class Fetch implements FetchInter{
         };
         opts.data = params;
 
-        return new Request().fetch(this.mock.getUrl(url),opts );
+        url = this.mock.getUrl(url);
+        if(this.mock.getDev&&this.mock.getDev() ){
+           opts.method = 'GET'; 
+        }
+        return new Request().fetch(url,opts );
     }
 
     /**
